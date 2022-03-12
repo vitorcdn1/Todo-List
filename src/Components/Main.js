@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux"
-import { listAction } from "../Actions/Action"
+import { listAction, modalEditAction } from "../Actions/Action"
 
 export default function Main() {
 
@@ -11,6 +11,23 @@ export default function Main() {
         // Function that delete a task based on the id
 
         dispatch(listAction("DELETE_TASK", Number(event.target.getAttribute("taskid"))))
+    }
+
+    function showEditModal(event) {
+
+        let id = Number(event.target.getAttribute("taskid"))
+        let taskToEdit
+
+        for (let task of listState) {
+            if (task.id === id) {
+                taskToEdit = task
+            }
+        }
+
+        console.log(taskToEdit)
+        dispatch(modalEditAction(true, taskToEdit))
+
+
     }
 
     function changeTaskState(event) {
@@ -40,7 +57,7 @@ export default function Main() {
 
                             <div className="ControlButton">
                                 <button taskid={task.id} onClick={deleteTask} id="ButtonDelete">DELETE</button>
-                                <button taskid={task.id} id="ButtonEdit">Edit</button>
+                                <button taskid={task.id} onClick={showEditModal} id="ButtonEdit">Edit</button>
                                 <button taskid={task.id} onClick={changeTaskState} id={`Button${task.state}`}>{task.state}</button>
                             </div>
                         </div>
