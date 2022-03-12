@@ -6,12 +6,14 @@ import Footer from "./Components/Footer"
 
 import { Provider } from "react-redux"
 import { createStore, combineReducers } from "redux"
-import {listReducer, modalReducer} from "./Reducers/Reducer"
+import { listReducer, modalReducer, modalEditReducer } from "./Reducers/Reducer"
+import Edit from "./Components/Edit"
 
 export default function App() {
 
     const store = createStore(combineReducers({
         modal: modalReducer,
+        modalEdit: modalEditReducer,
         list: listReducer
     }))
 
@@ -21,6 +23,7 @@ export default function App() {
             <Provider store={store}>
                 <Header />
                 <Modal />
+                <Edit />
                 <Main />
                 <Footer />
             </Provider>
