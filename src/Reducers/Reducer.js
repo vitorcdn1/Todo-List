@@ -9,6 +9,16 @@ const modalReducer = (state=false, action) => {
     }
 }
 
+const modalEditReducer = (state=[false, {}], action) => {
+    switch (action.type) {
+        case "SHOW_EDIT_MODAL":
+            return [true, action.payload]
+        case "HIDDE_EDIT_MODAL":
+            return [false, action.payload]
+        default:
+            return state;
+    }
+}
 const listReducer = (state=[], action) => {
 
     switch (action.type) {
@@ -34,6 +44,10 @@ const listReducer = (state=[], action) => {
             
             return [...newState]
 
+        case "EDIT_TASK":
+            
+            return state;
+
         case "GET_SAVED_LIST":      // That case will get a saved list from the localStorage and dispatch for the reducer
             return [...action.payload]
             
@@ -44,5 +58,6 @@ const listReducer = (state=[], action) => {
 
 export {
     modalReducer,
+    modalEditReducer,
     listReducer
 }
