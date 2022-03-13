@@ -1,16 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { modalEditAction } from '../Actions/Action'
+import { listAction, modalEditAction } from '../Actions/Action'
 import { useEffect, useState } from 'react'
 
 export default function Edit() {
 
-    const [TaskText, setTaskText] = useState("")
+    const [TaskText, setTaskText] = useState("")        // The hook with the value updated
     const dispatch = useDispatch()
     const modalState = useSelector(state => state.modalEdit)
 
     useEffect(() => {
 
-        // This useEffect will 
+        // This useEffect will set the TaskText hook to change the value of the input
 
         if (modalState[0]) {
             console.log("Showing the Edit modal for the first time ")
@@ -21,17 +21,37 @@ export default function Edit() {
     }, [modalState])
 
     function handleChange(event) {
+
+        // Function To change The hook every time that the input changes
+
         setTaskText(event.target.value)
     }
 
     function modalFunction(event) {
+
+        // Function That Close The Modal When you Click outside The Modal
+
         if (event.target.id === "Modal") {
-            dispatch(modalEditAction(false))
+            dispatch(modalEditAction(false, {}))
         }
     }
 
     function saveChanges() {
-        console.log(modalState[1])
+        
+        // Function That Save The Changes Writed In the Edit Modal Input
+
+        if (TaskText !== "") {
+
+            let updatedTask = modalState[1]
+            updatedTask.text = TaskText
+
+            dispatch(listAction("EDIT_TASK", updatedTask))  // Updateding The Task
+            dispatch(modalEditAction(false, {}))            // Closing The Edit Modal
+            
+        } else {
+
+            alert("Please Type Something in The Input !!!")
+        }
 
     }
 

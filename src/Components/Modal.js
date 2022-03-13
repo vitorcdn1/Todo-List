@@ -13,9 +13,8 @@ export default function Modal() {
     useEffect(() => {   // This useEffect will get the saved List from the localStorage and then dispatch to the list reducer
 
         let localStorageContent = localStorage.getItem("taskList")
-
+        
         if (localStorageContent) { dispatch(listAction("GET_SAVED_LIST", JSON.parse(localStorageContent))) }
-        console.log("Hello")
 
     }, [dispatch])
 

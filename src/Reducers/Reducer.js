@@ -46,7 +46,7 @@ const listReducer = (state=[], action) => {
 
         case "EDIT_TASK":
             
-            return state;
+            return state.map(task => (task.id === action.payload.id) ? action.payload : task)
 
         case "GET_SAVED_LIST":      // That case will get a saved list from the localStorage and dispatch for the reducer
             return [...action.payload]
